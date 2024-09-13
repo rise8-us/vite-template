@@ -5,6 +5,7 @@ import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 import tseslint from 'typescript-eslint'
 
+
 export default tseslint.config({
   extends: [js.configs.recommended, ...tseslint.configs.strictTypeChecked, ...tseslint.configs.stylisticTypeChecked],
   files: ['**/*.{ts,tsx}'],
@@ -20,9 +21,12 @@ export default tseslint.config({
   plugins: {
     // Add the react plugin
     react,
+    // @ts-ignore: It does not like how we're defining the react-hooks plugin for some reason.
     'react-hooks': reactHooks,
     'react-refresh': reactRefresh,
   },
+  // @ts-ignore: Ignored for being a known issue with flat configs inside of rules
+  // https://github.com/typescript-eslint/typescript-eslint/issues/8522
   rules: {
     ...reactHooks.configs.recommended.rules,
     'react-refresh/only-export-components': [
@@ -36,6 +40,6 @@ export default tseslint.config({
       {
         allowNumber: true
       }
-    ]
+    ],
   },
 })
